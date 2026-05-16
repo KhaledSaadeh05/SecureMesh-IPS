@@ -27,15 +27,7 @@ This project was built as a university networking/security project and demonstra
 * Built-in Attack Simulator ==> A test script that generates fake attack traffic so you can verify the IPS works.
 
 🗂️ Project Structure:
-securemesh_slim/
-│
-├── main.py               # Entry point — starts everything up
-├── ips_core.py           # All detection logic and core classes
-├── dashboard.py          # Web dashboard (Flask)
-├── simulate_attack.py    # Sends fake attack packets for testing
-├── malicious_ips.txt     # Your custom IP blacklist (one IP per line)
-├── requirements.txt      # Python libraries needed
-└── setup.sh              # One-command installer for Linux
+The project folder is called securemesh_slim and it contains 7 files, each one responsible for a specific job. The first file is main.py, which is the starting point of the whole program — when you run the project, this is the file you run first, and it connects all the other parts together. The second file is ips_core.py, which is the most important and largest file in the project — it contains all the detection logic and all the classes that handle things like blocking IPs, analyzing packets, logging alerts, and injecting TCP resets. The third file is dashboard.py, which builds the web interface using Flask so you can open your browser and see everything happening live, including alerts, blocked IPs, and traffic statistics. The fourth file is simulate_attack.py, which is a testing tool that sends fake attack packets to your own machine so you can check that the IPS is working correctly without needing a real attacker. The fifth file is malicious_ips.txt, which is a simple text file where you write down the IP addresses you want to block — one address per line — and the system reads and reloads this file automatically every 5 minutes. The sixth file is requirements.txt, which lists all the Python libraries that need to be installed before the project can run, such as Scapy, Flask, and pandas. The seventh and last file is setup.sh, which is a Linux shell script that installs everything automatically with a single command, so you don't have to install each library manually one by one.
 
 
 🧠 How It Works — Step by Step:
