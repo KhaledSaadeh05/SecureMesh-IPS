@@ -31,29 +31,7 @@ The project folder is called securemesh_slim and it contains 7 files, each one r
 
 
 🧠 How It Works — Step by Step:
-Network Traffic
-      │
-      ▼
- [Sniffer] ──── captures every packet on your interface
-      │
-      ▼
- [PacketAnalyzer] ──── runs each packet through all detectors:
-      │
-      ├── Stage 1: Is this IP whitelisted? → Allow immediately
-      ├── Stage 2: Is this IP blacklisted? → Block immediately
-      ├── Stage 3: High packet rate?       → Add threat score
-      ├── Stage 4: Port scanning?          → Add threat score
-      ├── Stage 5: SYN flood?              → Block
-      ├── Stage 6: ICMP flood?             → Block
-      ├── Stage 7: Malicious port?         → Block
-      ├── Stage 8: Brute force?            → Block
-      ├── Stage 9: Bad payload?            → Block
-      └── Stage 10: IOC score too high?    → Block
-              │
-              ▼
-       [AlertLogger] ──── writes the alert to SQLite database
-       [TCPRSTInjector] ── kills the malicious TCP connection
-       [Dashboard] ──────  shows everything live in your browser
+When the program runs, the first thing that happens is that network traffic starts flowing through your machine's network interface. The Sniffer sits there and captures every single packet that passes through, no matter where it came from or where it is going. Once a packet is captured, it gets passed to the PacketAnalyzer, which is the brain of the whole system — it takes each packet and runs it through 10 detection stages one by one. In the first stage, it checks if the source IP address is on the whitelist, and if it is, the packet is allowed through immediately without any further checks. In the second stage, it checks if the IP is on the blacklist, and if it is, the packet gets blocked right away. In the third stage, it checks whether this IP is sending packets at a suspiciously high rate, and if so, it adds points to that IP's threat score. In the fourth stage, it checks whether the IP is trying to connect to many different ports, which is a sign of port scanning, and again adds to the threat score. From stage five onwards, the system looks for more specific and dangerous attack types — stage five blocks SYN flood attacks, stage six blocks ICMP flood attacks, stage seven blocks connections coming from known malicious ports like backdoor ports, stage eight blocks brute force attempts such as repeated login tries on SSH, and stage nine blocks packets that contain dangerous or suspicious content in their payload. Finally, in stage ten, if an IP has collected too many threat score points from the earlier stages, it gets blocked automatically even if no single attack was caught directly. Once a threat is detected and a blocking decision is made, three things happen at the same time — the AlertLogger writes the full details of the alert into a local SQLite database so you have a record of everything, the TCPRSTInjector sends a TCP reset signal to forcefully kill the malicious connection, and the Dashboard updates live in your browser so you can see the alert appear on your screen in real time.
 
 🏗️ OOP Design (for university report)
 This project also demonstrates 4 main Object-Oriented Programming (OOP) concepts:
@@ -65,23 +43,7 @@ This project also demonstrates 4 main Object-Oriented Programming (OOP) concepts
 
 
 Class Hierarchy:
-BaseDetector (abstract)
-  ├── BlacklistDetector
-  ├── BaseFloodDetector
-  │     ├── SYNFloodDetector
-  │     └── ICMPFloodDetector
-  ├── BaseImmediateBlockDetector
-  │     ├── MaliciousPortDetector
-  │     ├── BruteForceDetector
-  │     └── PayloadDetector
-  └── IOCScoringDetector
-
-BaseLogger (abstract)
-  ├── AlertLogger
-  └── SyslogLogger
-
-BaseInjector (abstract)
-  └── TCPRSTInjector
+The project is built using three separate inheritance trees, each one starting from an abstract base class. The first and largest tree starts with BaseDetector, which is an abstract class that defines the basic structure that every detection class must follow. Directly inheriting from it is BlacklistDetector, which handles checking if an IP is on the blocked list, and IOCScoringDetector, which handles the threat scoring system. Also inheriting from BaseDetector is BaseFloodDetector, which is itself another abstract class that provides shared logic for flood-type attacks, and from it inherit two concrete classes — SYNFloodDetector, which detects SYN flood attacks, and ICMPFloodDetector, which detects ICMP flood attacks. The third child of BaseDetector is BaseImmediateBlockDetector, which is also an abstract class that serves as a parent for attacks that must be blocked instantly without needing a score, and from it inherit three concrete classes — MaliciousPortDetector, which blocks connections on known dangerous ports, BruteForceDetector, which blocks repeated login attempts, and PayloadDetector, which inspects the content of packets for dangerous data. The second inheritance tree starts with BaseLogger, which is an abstract class that defines how logging should work, and from it inherit two classes — AlertLogger, which saves alerts into the local SQLite database, and SyslogLogger, which optionally forwards alerts to the system's syslog server. The third and smallest tree starts with BaseInjector, which is an abstract class that defines how connection killing should work, and the only class that inherits from it is TCPRSTInjector, which is responsible for sending TCP reset packets to forcefully terminate malicious connections.
 
 
 ⚙️ Requirements:
