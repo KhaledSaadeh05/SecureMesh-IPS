@@ -1,0 +1,9 @@
+# malicious_ips.txt -- SecureMesh IPS v3 Blocklist
+# Add one IP address per line.
+# Lines starting with # are comments.
+# Auto-reloads every 5 minutes -- no restart needed.
+#
+# Paste your IPs here, one per line:
+192.168.1.100
+10.0.0.55
+203.0.113.7
