@@ -107,7 +107,7 @@ pandas>=2.0.0             # Data handling for alerts
 
 🚀 Installation & Usage:
 # In a ONE terminal, run:
-Step 1 — Install everything automatically ==>(sudo bash setup.sh)
+Step 1 — Install everything automatically ==>(sudo bash setup.sh).
 This will:
 - Detect your network interface automatically.
 - Install all required system and Python packages.
@@ -119,7 +119,7 @@ sudo python3 main.py --iface eth0 --dashboard --syslog).
 Replace eth0 with your actual network interface (e.g., wlan0 for Wi-Fi).
 
 
-Step 3 — Open the Dashboard ==> (http://127.0.0.1:5000 It can be somewhat different) 
+Step 3 — Open the Dashboard ==> (http://127.0.0.1:5000 It can be somewhat different).
 Login credentials:
 Username: admin
 Password: securemesh
@@ -133,10 +133,10 @@ The dashboard shows:
 # In a second terminal, run:
 
 Step 4 — Test it with the Attack Simulator (optional) ==> (sudo python3 simulate_attack.py --iface eth0 --all-tests +
-sudo python3 simulate_attack.py --iface eth0 --ip 192.0.2.1)
+sudo python3 simulate_attack.py --iface eth0 --ip 192.0.2.1).
 This sends fake spoofed packets to test every detection stage. You'll see the alerts appear live in the dashboard.
 
-Step 5 — Stop and clean up ==> (sudo bash cleanup.sh)
+Step 5 — Stop and clean up ==> (sudo bash cleanup.sh).
 This removes the iptables rules that were added during setup.
 
 
