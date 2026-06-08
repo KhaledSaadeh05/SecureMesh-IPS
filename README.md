@@ -79,7 +79,7 @@ Network Traffic
               │
               ▼
        [AlertLogger] ──── writes the alert to SQLite database
-       [TCPRSTInjector] ── kills the malicious TCP connection
+       [TCP-RST-Injector] ── kills the malicious TCP connection
        [Dashboard] ──────  shows everything live in your browser
 ```
 
