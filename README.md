@@ -89,13 +89,13 @@ Network Traffic
 
 This project demonstrates 4 core Object-Oriented Programming (OOP) concepts:
 
-1. **Encapsulation** — The important data inside each class is kept private using `_` before variable names. The program interacts with objects through methods instead of changing the variables directly.
+1. **Encapsulation** : The important data inside each class is kept private using `_` before variable names. The program interacts with objects through methods instead of changing the variables directly.
 
-2. **Inheritance** — All detector classes inherit from `BaseDetector`. All logger classes inherit from `BaseLogger`. This means shared behaviour is written once and reused.
+2. **Inheritance** : All detector classes inherit from `BaseDetector`. All logger classes inherit from `BaseLogger`. This means shared behaviour is written once and reused.
 
-3. **Polymorphism** — `PacketAnalyzer` calls `.detect()` on a list of detector objects without knowing what type each one is. Each detector handles its own logic. Same method call, different behaviours.
+3. **Polymorphism** : `PacketAnalyzer` calls `.detect()` on a list of detector objects without knowing what type each one is. Each detector handles its own logic. Same method call, different behaviours.
 
-4. **Composition** — The main class `SecureMeshIPS` is built using other objects like `IPDatabase`, `Sniffer`, and `Dashboard` inside it. This follows the "has-a" relationship instead of inheritance.
+4. **Composition** : The main class `SecureMeshIPS` is built using other objects like `IPDatabase`, `Sniffer`, and `Dashboard` inside it. This follows the "has-a" relationship instead of inheritance.
 
 ### Class Hierarchy
 
